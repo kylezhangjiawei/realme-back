@@ -1,18 +1,24 @@
 <template>
   <div class="home">
-    <img alt="Vue logo" src="../assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+    <left-nav></left-nav>
+    <router-view/>
   </div>
 </template>
 
 <script>
 // @ is an alias to /src
-import HelloWorld from '@/components/HelloWorld.vue'
+import leftNav from "@/components/leftNav";
 
 export default {
   name: 'Home',
   components: {
-    HelloWorld
+    leftNav
   }
 }
 </script>
+<style scoped lang="scss">
+.home {
+  height: 100%;
+  display: flex;
+}
+</style>
