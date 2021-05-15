@@ -1,5 +1,8 @@
 <template>
   <section class="leftNav">
+    <p>
+      Realme activities
+    </p>
     <el-menu
         :uniqueOpened="true"
         default-active="2"
@@ -8,50 +11,14 @@
         @close="handleClose"
         background-color="#001529"
         text-color="#fff"
+        :router="true"
         active-text-color="#ffd04b">
-      <el-submenu index="1">
+      <el-submenu :index="item.name" v-for="(item,i) in navList">
         <template #title>
           <i class="el-icon-location"></i>
-          <span>导航一</span>
+          <span>{{item.name}}</span>
         </template>
-        <el-menu-item-group>
-          <template #title>分组一</template>
-          <el-menu-item index="1-1">选项1</el-menu-item>
-          <el-menu-item index="1-2">选项2</el-menu-item>
-        </el-menu-item-group>
-        <el-menu-item-group title="分组2">
-          <el-menu-item index="1-3">选项3</el-menu-item>
-        </el-menu-item-group>
-        <el-submenu index="1-4">
-          <template #title>选项4</template>
-          <el-menu-item index="1-4-1">选项1</el-menu-item>
-        </el-submenu>
-      </el-submenu>
-      <el-menu-item index="2">
-        <i class="el-icon-menu"></i>
-        <template #title>导航二</template>
-      </el-menu-item>
-      <el-menu-item index="3" disabled>
-        <i class="el-icon-document"></i>
-        <template #title>导航三</template>
-      </el-menu-item>
-      <el-menu-item index="4">
-        <i class="el-icon-setting"></i>
-        <template #title>导航四</template>
-      </el-menu-item>
-      <el-submenu index="5">
-        <template #title>
-          <i class="el-icon-location"></i>
-          <span>导航一</span>
-        </template>
-        <el-menu-item-group>
-          <template #title>分组一</template>
-          <el-menu-item index="5-1">选项1</el-menu-item>
-          <el-menu-item index="5-2">选项2</el-menu-item>
-        </el-menu-item-group>
-        <el-menu-item-group title="分组2">
-          <el-menu-item index="5-3">选项3</el-menu-item>
-        </el-menu-item-group>
+        <el-menu-item :index="items.path" v-for="(items,index) in item.children">{{ items.name }}</el-menu-item>
       </el-submenu>
     </el-menu>
   </section>
@@ -63,7 +30,27 @@ import {mapGetters} from 'vuex';
 export default {
   name: "leftNav",
   data() {
-    return {}
+    return {
+      navList:[
+        {
+          name:'Clock in',
+          children:[
+            {
+              name:'Punch In Settings',
+              path:'/clockIn'
+            },
+            {
+              name:'Card management',
+              path:'/clockIn/cardManagement'
+            },
+            {
+              name:'Data statistics',
+              path:'/clockIn/dataStatistics'
+            }
+          ]
+        }
+      ]
+    }
   },
   computed: {
     ...mapGetters([])
@@ -86,8 +73,18 @@ export default {
 .leftNav {
   width: 240px;
   height: 100%;
-  .el-menu{
-    height: 100%;
+  &>p{
+    height: 100px;
+    line-height: 100px;
+    font-size: 22px;
+    background-color: #00284d;
+    color: #ffffff;
+    box-sizing: border-box;
+    width: 239px;
+  }
+  .el-menu {
+    height: calc(100% - 100px);
+    border-right: none;
   }
 }
 </style>
